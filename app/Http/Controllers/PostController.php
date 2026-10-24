@@ -9,6 +9,6 @@ class PostController extends Controller
 {
     public function home()
     {
-        return view ('index');
+        return view ('pages.index');
     }
 }
