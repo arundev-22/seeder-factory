@@ -8,8 +8,37 @@
 
 </head>
 <body>
-    <div class="nav nav-bar w-100 bg-primary">
-        <div class="row m-4 ">Home</div>
+    <div class="nav nav-bar w-100 bg-secondary">
+        <div class="row m-4 g-2">Home</div>
+        <div class="d-flex align-items-end justify-content-center">
+            <button type="button" class="btn-solid theme-primary m-2" commandfor="invokerDialog" command="show-modal">
+            Add Data
+            </button>
+
+            <dialog class="dialog" id="invokerDialog">
+                <div class="dialog-header">
+                    <h1 class="dialog-title">Invoker Commands</h1>
+                    <button type="button" class="btn-close" commandfor="invokerDialog" command="close" aria-label="Close"></button>
+                </div>
+                <div class="dialog-body">
+                    <form action="">
+                        @csrf
+                        <label for="name">Name:</label>
+                        <input type="text" name="name">
+                        <br><br>
+                        <label for="name">Email:</label>
+                        <input type="text" name="name">
+                        <br><br>
+                        <label for="marks">Marks:</label>
+                        <input type="number" name="marks">
+                    </form>
+                </div>
+                <div class="dialog-footer">
+                    <button type="button" class="btn-solid theme-secondary" commandfor="invokerDialog" command="close">Close</button>
+                    <button type="submit" class="btn-solid theme-secondary" commandfor="invokerDialog" command="add">Add</button>
+                </div>
+            </dialog>
+        </div>
     </div>
     <div class="container">
         @yield('content')
