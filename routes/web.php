@@ -13,3 +13,4 @@ Route::get('/', [StudentController::class, 'home'])->name('pages.index');
 Route::post('/post', [StudentController::class, 'store'])->name('post.store');
 Route::put('/post/{student}', [StudentController::class, 'update'])->name('post.update');
 Route::delete('/post/{student}', [StudentController::class, 'destroy'])->name('post.destroy');
+Route::get('/products', [StudentController::class, 'product'])->name('pages.product');

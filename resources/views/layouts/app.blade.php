@@ -8,11 +8,16 @@
 
 </head>
 <body>
-    <div class="nav nav-bar w-100 bg-secondary d-flex justify-content-between align-items-center p-3">
-        <div class="row m-4 g-2">Laravel Application</div>
+    <div class="nav nav-bar w-100 bg-secondary d-flex justify-content-between align-items-center">
+            <div class="row m-4 g-2">
+                <div class="d-flex gap-5">
+                    <a href="{{ route('pages.index') }}" class="text-decoration-none fg-emphasis-secondary">Home</a>
+                    <a href="{{ route('pages.product') }}" class="text-decoration-none fg-emphasis-secondary">Product</a>
+                </div>
+            </div>
         <div>
             <button type="button" class="btn-solid theme-primary m-2" commandfor="invokerDialog" command="show-modal">
-            Add Data
+                Add Data
             </button>
         </div>
         <dialog class="dialog" id="invokerDialog">
@@ -48,42 +53,43 @@
             </form>
         </dialog>
     </div>
-    @foreach($students as $student)
-    <form action="{{ route('post.update', $student) }}" method="post">
-        @csrf
-        @method('PUT')
-        <dialog class="dialog" id="editDialog-{{ $student->id }}">
-            <div class="dialog-header">
-                <h1 class="dialog-title">Edit Student Data</h1>
-                <button type="button" class="btn-close" commandfor="editDialog-{{ $student->id }}" command="close" aria-label="Close"></button>
-            </div>
-            <div class="dialog-body">
-                <label for="name-{{ $student->id }}">Name:</label>
-                <input type="text" name="name" id="name-{{ $student->id }}" class="form-control" value="{{ old('name', $student->name) }}">
-                @error('name')
-                    <span class="text font-medium text-danger mt-1 block">{{ $message }}</span>
-                @enderror
-                <br>
-                <label for="email-{{ $student->id }}">Email:</label>
-                <input type="text" name="email" id="email-{{ $student->id }}" class="form-control" value="{{ old('email', $student->email) }}">
-                @error('email')
-                    <span class="text font-medium text-danger mt-1 block">{{ $message }}</span>
-                @enderror
-                <br>
-                <label for="marks-{{ $student->id }}">Marks:</label>
-                <input type="number" name="marks" id="marks-{{ $student->id }}" class="form-control" value="{{ old('marks', $student->marks) }}">
-                @error('marks')
-                    <span class="text font-medium text-danger mt-1 block">{{ $message }}</span>
-                @enderror
-            </div>
-            <div class="dialog-footer">
-                <button type="button" class="btn-solid theme-secondary" commandfor="editDialog-{{ $student->id }}" command="close">Close</button>
-                <!-- Removed invalid commandfor/command attributes -->
-                <button type="submit" class="btn-solid theme-secondary">Update</button>
-            </div>
-        </dialog>
-    </form>
-    @endforeach
+    @if(!empty($students))
+        @foreach($students as $student)
+            <form action="{{ route('post.update', $student) }}" method="post">
+                @csrf
+                @method('PUT')
+                <dialog class="dialog" id="editDialog-{{ $student->id }}">
+                    <div class="dialog-header">
+                        <h1 class="dialog-title">Edit Student Data</h1>
+                        <button type="button" class="btn-close" commandfor="editDialog-{{ $student->id }}" command="close" aria-label="Close"></button>
+                    </div>
+                    <div class="dialog-body">
+                        <label for="name-{{ $student->id }}">Name:</label>
+                        <input type="text" name="name" id="name-{{ $student->id }}" class="form-control" value="{{ old('name', $student->name) }}">
+                        @error('name')
+                            <span class="text font-medium text-danger mt-1 block">{{ $message }}</span>
+                        @enderror
+                        <br>
+                        <label for="email-{{ $student->id }}">Email:</label>
+                        <input type="text" name="email" id="email-{{ $student->id }}" class="form-control" value="{{ old('email', $student->email) }}">
+                        @error('email')
+                            <span class="text font-medium text-danger mt-1 block">{{ $message }}</span>
+                        @enderror
+                        <br>
+                        <label for="marks-{{ $student->id }}">Marks:</label>
+                        <input type="number" name="marks" id="marks-{{ $student->id }}" class="form-control" value="{{ old('marks', $student->marks) }}">
+                        @error('marks')
+                            <span class="text font-medium text-danger mt-1 block">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="dialog-footer">
+                        <button type="button" class="btn-solid theme-secondary" commandfor="editDialog-{{ $student->id }}" command="close">Close</button>
+                        <button type="submit" class="btn-solid theme-secondary">Update</button>
+                    </div>
+                </dialog>
+            </form>
+        @endforeach
+    @endif
     <div class="container">
         <div class="d-flex justify-content-center flex-shrink-0">
             @if(session('success'))
